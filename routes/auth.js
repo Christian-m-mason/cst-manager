@@ -34,6 +34,8 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+// Authenticate user
+
 router.get("/signin", async (req, res) => {
   const { email_address, password } = req.body;
   try {

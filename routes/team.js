@@ -5,17 +5,20 @@ const router = new Router();
 
 module.exports = router;
 
+// Get All Teams
 router.get("/", async (req, res) => {
   const { rows } = await db.query("Select * FROM team ORDER BY id ASC;");
   res.send(rows);
 });
 
+//Get Team by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const { rows } = await db.query("SELECT * FROM team WHERE id = $1", [id]);
   res.send(rows[0]);
 });
 
+// Get roster of team members by team id
 router.get("/:id/roster", async (req, res) => {
   const { id } = req.params;
   const { rows } = await db.query(
