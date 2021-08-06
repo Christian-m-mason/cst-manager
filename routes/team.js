@@ -1,6 +1,6 @@
 const Router = require("express-promise-router");
 const db = require("../db");
-
+const auth = require("../middleware/auth");
 const router = new Router();
 
 module.exports = router;
@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Get roster of team members by team id
-router.get("/:id/roster", async (req, res) => {
+router.get("/:id/roster", auth, async (req, res) => {
   const { id } = req.params;
   const { rows } = await db.query(
     `
@@ -32,5 +32,5 @@ router.get("/:id/roster", async (req, res) => {
   WHERE t.id = $1;`,
     [id]
   );
-  res.send(rows);
+  res.send({ user: req.user, result: rows });
 });

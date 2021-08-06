@@ -1,9 +1,9 @@
 const team = require("./team");
 const users = require("./users");
-const auth = require("./auth");
+const signUpOrLogIn = require("./signUpOrLogin");
 
 module.exports = (app) => {
   app.use("/team", team);
   app.use("/users", users);
-  app.use("/auth", auth);
+  app.use("/", signUpOrLogIn);
 };
