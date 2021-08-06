@@ -1,0 +1,6 @@
+CREATE TABLE role (
+    id SERIAL PRIMARY KEY,
+    role VARCHAR(10) DEFAULT 'admin',
+    read boolean DEFAULT true,
+    write boolean DEFAULT true,
+);

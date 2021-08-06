@@ -25,8 +25,11 @@ router.post("/register", async (req, res) => {
         .status(409)
         .send({ message: "User Already Exists. Please Login" });
     }
+    const role = await db.query("SELECT role FROM role WHERE id = $1", [
+      rows[0].role_id,
+    ]);
     const token = await jwt.sign(
-      { user_id: rows[0].id, email: rows[0].email_address },
+      { user_id: rows[0].id, email: rows[0].email, role: role.rows[0].role },
       process.env.TOKEN_KEY,
       {
         expiresIn: "2h",
@@ -37,6 +40,7 @@ router.post("/register", async (req, res) => {
       user: {
         id: rows[0].id,
         email: rows[0].email,
+        role: role.rows[0].role,
         token: token,
       },
     });

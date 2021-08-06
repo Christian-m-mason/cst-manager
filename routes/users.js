@@ -38,3 +38,5 @@ router.get("/:id/profile", async (req, res) => {
   );
   res.send(rows[0]);
 });
+
+//Create User Profile
